@@ -11,7 +11,7 @@ import java.util.*
 class PersonController(
     val service: PersonService
 ) {
-    @GetMapping()
+    @GetMapping
     fun getAllPeople(): List<Person> = service.getAll()
 
     @GetMapping("/{id}")
@@ -26,5 +26,6 @@ class PersonController(
     fun deletePerson(@PathVariable id: Long) = service.remove(id)
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     fun updatePerson(@PathVariable id: Long, @RequestBody person: Person): Person = service.update(id, person)
 }
