@@ -1,6 +1,6 @@
 package ch.dukex.chat.server.service
 
-import ch.dukex.chat.server.PersonRepository
+import ch.dukex.chat.server.repository.PersonRepository
 import ch.dukex.chat.server.model.Person
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
