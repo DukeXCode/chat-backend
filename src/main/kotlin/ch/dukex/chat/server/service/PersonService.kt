@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
-class PersonService(val repository: PersonRepository) {
+class PersonService(
+    val repository: PersonRepository) {
     fun getAll(): List<Person> = repository.findAll()
 
     fun getById(id: Long): Person {
