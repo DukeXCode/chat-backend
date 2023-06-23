@@ -21,7 +21,7 @@ class MessageService(
 
     fun create(message: Message): Message {
         return if (personsExist(message)) repository.save(message)
-        else throw ResponseStatusException(HttpStatus.BAD_REQUEST)
+        else throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Receiver or sender does not exist.")
     }
 
     fun remove(id: Long) {
@@ -31,7 +31,9 @@ class MessageService(
 
     fun update(id: Long, message: Message): Message {
         if (!repository.existsById(id)) throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        if (!personsExist(message)) throw ResponseStatusException(HttpStatus.BAD_REQUEST)
+        if (!personsExist(message)) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Receiver or sender does not exist.")
+        }
         message.id = id
         return repository.save(message)
     }
