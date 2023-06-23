@@ -11,7 +11,9 @@ import org.springframework.web.server.ResponseStatusException
 class PersonService(val repository: PersonRepository) {
     fun getAll(): List<Person> = repository.findAll()
 
-    fun getById(id: Long): Person = repository.findByIdOrNull(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    fun getById(id: Long): Person {
+        return repository.findByIdOrNull(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    }
 
     fun create(person: Person) = repository.save(person)
 
