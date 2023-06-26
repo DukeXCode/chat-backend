@@ -9,7 +9,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class PersonService(
-    val repository: PersonRepository) {
+    val repository: PersonRepository
+) {
     fun getAll(): List<Person> = repository.findAll()
 
     fun getById(id: Long): Person {

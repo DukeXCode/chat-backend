@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException
 class MessageService(
     val repository: MessageRepository,
     val personRepository: PersonRepository
-    ) {
+) {
     fun getAll(): List<Message> = repository.findAll()
 
     fun getById(id: Long): Message {
