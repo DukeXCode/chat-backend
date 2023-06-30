@@ -1,6 +1,7 @@
 package ch.dukex.chat.server.service
 
 import ch.dukex.chat.server.model.Message
+import ch.dukex.chat.server.model.Person
 import ch.dukex.chat.server.repository.MessageRepository
 import ch.dukex.chat.server.repository.PersonRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -12,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException
 class MessageService(
     val repository: MessageRepository,
     val personRepository: PersonRepository
-    ) {
+) {
     fun getAll(): List<Message> = repository.findAll()
 
     fun getById(id: Long): Message {
@@ -37,6 +38,10 @@ class MessageService(
         message.id = id
         return repository.save(message)
     }
+
+    fun receivedMessages(person: Person): List<Message> = repository.findAllByReceiver(person)
+
+    fun sentMessages(person: Person): List<Message> = repository.findAllBySender(person)
 
     private fun personsExist(message: Message): Boolean {
         return personRepository.existsById(message.sender.id) && personRepository.existsById(message.receiver.id)
