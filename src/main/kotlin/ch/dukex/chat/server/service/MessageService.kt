@@ -51,6 +51,8 @@ class MessageService(
     fun receivedOrSentMessages(person: Person): List<Message> = repository.findAllByReceiverOrSender(person, person)
 
     private fun personsExist(message: Message): Boolean {
-        return personRepository.existsById(message.sender.id) && personRepository.existsById(message.receiver.id)
+        val sender = personRepository.findByIdOrNull(message.sender.id) ?: return false
+        val receiver = personRepository.findByIdOrNull(message.receiver.id) ?: return false
+        return sender == message.sender && receiver == message.receiver
     }
 }
