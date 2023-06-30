@@ -8,6 +8,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import java.time.Instant
 
 @Service
 class MessageService(
@@ -21,7 +22,10 @@ class MessageService(
     }
 
     fun create(message: Message): Message {
-        return if (personsExist(message)) repository.save(message)
+        return if (personsExist(message)) {
+            message.createdAt = Instant.now()
+            repository.save(message)
+        }
         else throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Receiver or sender does not exist.")
     }
 
@@ -31,11 +35,12 @@ class MessageService(
     }
 
     fun update(id: Long, message: Message): Message {
-        if (!repository.existsById(id)) throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        val oldMessage = repository.findByIdOrNull(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
         if (!personsExist(message)) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Receiver or sender does not exist.")
         }
         message.id = id
+        message.createdAt = oldMessage.createdAt
         return repository.save(message)
     }
 
