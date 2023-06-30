@@ -8,4 +8,6 @@ interface MessageRepository : JpaRepository<Message, Long> {
     fun findAllBySender(sender: Person): List<Message>
 
     fun findAllByReceiver(receiver: Person): List<Message>
+
+    fun findAllByReceiverOrSender(receiver: Person, sender: Person): List<Message>
 }

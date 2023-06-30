@@ -31,4 +31,9 @@ class MessageController(val service: MessageService, val personService: PersonSe
     
     @GetMapping("/sender/{id}")
     fun getSentMessages(@PathVariable id: Long): List<Message> = service.sentMessages(personService.getById(id))
+
+    @GetMapping("/receiverOrSender/{id}")
+    fun getReceivedOrSentMessages(@PathVariable id: Long): List<Message> {
+        return service.receivedOrSentMessages(personService.getById(id))
+    }
 }
