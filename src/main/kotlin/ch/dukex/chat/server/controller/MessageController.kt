@@ -5,7 +5,7 @@ import ch.dukex.chat.server.service.MessageService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/messages")
+@RequestMapping("api/messages")
 @RestController
 class MessageController(val service: MessageService) {
     @GetMapping

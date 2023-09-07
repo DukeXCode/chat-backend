@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RequestMapping("/persons")
+@RequestMapping("api/persons")
 @RestController
 class PersonController(
     val service: PersonService
