@@ -1,6 +1,8 @@
 package ch.dukex.chat.server.model
 
 import jakarta.persistence.*
+import org.jetbrains.annotations.NotNull
+import java.time.Instant
 
 @Entity
 data class Message(
@@ -11,5 +13,7 @@ data class Message(
         @ManyToOne
         var sender: Person,
         @ManyToOne
-        var receiver: Person
+        var receiver: Person,
+        @NotNull
+        var createdAt: Instant?
 )
