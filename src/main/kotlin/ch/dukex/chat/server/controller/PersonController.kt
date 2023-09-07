@@ -4,9 +4,8 @@ import ch.dukex.chat.server.model.Person
 import ch.dukex.chat.server.service.PersonService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
-@RequestMapping("/persons")
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RequestMapping("api/persons")
 @RestController
 class PersonController(
